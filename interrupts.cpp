@@ -15,8 +15,10 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
     std::string execution = "";  //!< string to accumulate the execution output
     std::string system_status = "";  //!< string to accumulate the system status output
     int current_time = time;
+    int load_time = 15;
+    int context_save_time = 10;
+    size_t random_time_range = 10;
 
-    //seed random time 
     //parse each line of the input trace file. 'for' loop to keep track of indices.
     for(size_t i = 0; i < trace_file.size(); i++) {
         auto trace = trace_file[i];
@@ -146,10 +148,10 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
                 break;
             }
 
-            int load_ms = static_cast<int>(new_size) * 15;
+            int load_ms = static_cast<int>(new_size) * load_time;
             execution += std::to_string(current_time) + ", " + std::to_string(load_ms) + ", loading program into memory\n";
             current_time += load_ms;
-            int random_time = rand()%10 +1;
+            int random_time = rand()%int(random_time_range) +1;
             execution += std::to_string(current_time) + ", " + std::to_string(random_time) + ", marking partition as occupied\n";
             current_time += random_time;
 
@@ -161,7 +163,6 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             current_time += 1;
 
             //dlog the system status again
-        
             system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + current.program_name + ", " + std::to_string(duration_intr) + "\n";
             system_status += print_PCB(current, wait_queue);
             
@@ -187,7 +188,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
 
             ///////////////////////////////////////////////////////////////////////////////////////////
 
-            break; //Why is this important? (answer in report)
+            break; //Why is this important? 
 
         }
     }
@@ -218,8 +219,9 @@ int main(int argc, char** argv) {
     std::vector<PCB> wait_queue;
 
     /******************ADD YOUR VARIABLES HERE*************************/
-
-
+    int load_time = 15;
+    size_t random_time_range = 10;
+    int context_save_time = 10;
     /******************************************************************/
 
     //Converting the trace file into a vector of strings.

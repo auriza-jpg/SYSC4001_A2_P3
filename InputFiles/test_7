@@ -1,0 +1,23 @@
+FORK, 10
+IF_CHILD, 0
+EXEC program1, 30
+EXEC program2, 30    
+EXEC program3, 30   
+IF_PARENT, 0
+EXEC program4, 30
+ENDIF, 0
+CPU, 10
+
+#program1, 20
+CPU, 5
+
+#program2, 20
+CPU, 8
+
+#program3, 20
+CPU, 7
+
+#program4, 20
+CPU, 4
+
+note: trying to fill particions 

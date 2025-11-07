@@ -10,3 +10,6 @@ CPU, 100
 
 #program2, 15
 SYSCALL, 4
+
+note: child performs an EXEC runs its entire program before the parent performs its own EXEC
+
