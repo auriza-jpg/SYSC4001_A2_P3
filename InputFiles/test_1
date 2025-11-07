@@ -1,0 +1,12 @@
+FORK, 10 
+IF_CHILD, 0
+EXEC program1, 50 
+IF_PARENT, 0
+EXEC program2, 25 
+ENDIF, 0
+
+#program1, 10
+CPU, 100
+
+#program2, 15
+SYSCALL, 4
