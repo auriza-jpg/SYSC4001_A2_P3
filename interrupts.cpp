@@ -8,6 +8,7 @@
 #include<interrupts.hpp>
 
 
+
 std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string> trace_file, int time, std::vector<std::string> vectors, std::vector<int> delays, std::vector<external_file> external_files, PCB current, std::vector<PCB> wait_queue) {
 
     std::string trace;      //!< string to store single line of trace file
@@ -52,7 +53,6 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
 
             ///////////////////////////////////////////////////////////////////////////////////////////
             //FORK
-            ;
             execution += std::to_string(current_time) + ", " + std::to_string(duration_intr) + ", Cloning the pcb \n";
             current_time +=duration_intr;
             execution += std::to_string(current_time) + "," + "0, Scheduler called \n";
@@ -70,6 +70,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             ///////////////////////////////////////////////////////////////////////////////////////////
 
             //The following loop helps you do 2 things:
+            // * Collect the trace of the child (and only the child, skip parent)
             // * Collect the trace of the child (and only the child, skip parent)
             // * Get the index of where the parent is supposed to start executing from
             std::vector<std::string> child_trace;
@@ -107,7 +108,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             //With the child's trace, run the child (HINT: think recursion)
             std::vector<PCB> new_wait = wait_queue;
             new_wait.push_back(current);
-            // snapshot
+            // log the system status 
             system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + std::to_string(duration_intr) + "\n";
             system_status += print_PCB(child, new_wait);
             auto [execution_output, system_status_output, time_dif] =  simulate_trace(child_trace,current_time,vectors,delays,external_files,child, new_wait);
@@ -128,7 +129,6 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             execution += std::to_string(current_time) + ", " + std::to_string(duration_intr) + ", Program is " + std::to_string(new_size) + " Mb large\n";
             current_time += duration_intr;
 
-            // free old partition (if any) and allocate a new one via existing helper
             if (current.partition_number >= 1) {
                 free_memory(&current);
             }
@@ -140,13 +140,12 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
                 execution += std::to_string(current_time) + ", 1, no free partitions!\n";
                 execution += std::to_string(current_time) + ", 1, IRET\n";
                 current_time += 2;
-                //do snapshot now since we are leaving the loop
+                //do system status log now since we are leaving the loop
                  system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + std::to_string(duration_intr) + "\n";
                  system_status += print_PCB(current, wait_queue);
                 break;
             }
 
-            // loader cost = 15 ms per
             int load_ms = static_cast<int>(new_size) * 15;
             execution += std::to_string(current_time) + ", " + std::to_string(load_ms) + ", loading program into memory\n";
             current_time += load_ms;
@@ -161,8 +160,8 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             execution += std::to_string(current_time) + ", 1, IRET\n";
             current_time += 1;
 
-            //do system snapshot again
-            
+            //dlog the system status again
+        
             system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + std::to_string(duration_intr) + "\n";
             system_status += print_PCB(current, wait_queue);
             
