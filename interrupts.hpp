@@ -11,6 +11,8 @@
 #include<iomanip>
 #include <algorithm>
 #include<stdio.h>
+#include <time.h>
+#include<cstdlib>
 
 #define ADDR_BASE   0
 #define VECTOR_SIZE 2
