@@ -109,7 +109,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             std::vector<PCB> new_wait = wait_queue;
             new_wait.push_back(current);
             // log the system status 
-            system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + std::to_string(duration_intr) + "\n";
+            system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + current.program_name + ", " + std::to_string(duration_intr) + "\n";
             system_status += print_PCB(child, new_wait);
             auto [execution_output, system_status_output, time_dif] =  simulate_trace(child_trace,current_time,vectors,delays,external_files,child, new_wait);
             execution += execution_output;
@@ -141,7 +141,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
                 execution += std::to_string(current_time) + ", 1, IRET\n";
                 current_time += 2;
                 //do system status log now since we are leaving the loop
-                 system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + std::to_string(duration_intr) + "\n";
+                system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + current.program_name + ", " + std::to_string(duration_intr) + "\n";
                  system_status += print_PCB(current, wait_queue);
                 break;
             }
@@ -162,7 +162,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
 
             //dlog the system status again
         
-            system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + std::to_string(duration_intr) + "\n";
+            system_status += "time: " + std::to_string(current_time) + "; current trace: " + activity +", " + current.program_name + ", " + std::to_string(duration_intr) + "\n";
             system_status += print_PCB(current, wait_queue);
             
             ///////////////////////////////////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             //With the exec's trace (i.e. trace of external program), run the exec (HINT: think recursion)
             auto [execution_out, system_status_update, time_dif] = simulate_trace(exec_traces, current_time, vectors, delays, external_files, current, wait_queue);
             execution += execution_out;
-            system_status += system_status;
+            system_status += system_status_update;
             current_time = time_dif;
 
             ///////////////////////////////////////////////////////////////////////////////////////////
