@@ -166,13 +166,16 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
             system_status += print_PCB(current, wait_queue);
             
             ///////////////////////////////////////////////////////////////////////////////////////////
-
             std::ifstream exec_trace_file(program_name + ".txt");
+            if (!exec_trace_file.is_open()) {
+                 std::cerr << "Error: could not open " << program_name << ".txt" << std::endl;
+                 }
 
             std::vector<std::string> exec_traces;
             std::string exec_trace;
             while(std::getline(exec_trace_file, exec_trace)) {
                 exec_traces.push_back(exec_trace);
+                std::cout<<exec_trace<<std::endl;
             }
 
             ///////////////////////////////////////////////////////////////////////////////////////////

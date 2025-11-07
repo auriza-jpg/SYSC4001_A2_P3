@@ -1,20 +1,37 @@
-time: 18; current trace: FORK, 10
+time: 18; current trace: FORK, 17
 +------------------------------------------------------+
 | PID |program name |partition number | size |   state |
 +------------------------------------------------------+
 |   1 |        init |               5 |    1 | running |
 |   0 |        init |               6 |    1 | waiting |
 +------------------------------------------------------+
-time: 246; current trace: EXEC, 50
+time: 212; current trace: EXEC, 16
 +------------------------------------------------------+
 | PID |program name |partition number | size |   state |
 +------------------------------------------------------+
 |   1 |    program1 |               4 |   10 | running |
 |   0 |        init |               6 |    1 | waiting |
 +------------------------------------------------------+
-time: 544; current trace: EXEC, 25
+time: 234; current trace: FORK, 15
 +------------------------------------------------------+
 | PID |program name |partition number | size |   state |
 +------------------------------------------------------+
-|   0 |    program2 |               3 |   15 | running |
+|   2 |    program1 |               3 |   10 | running |
+|   0 |        init |               6 |    1 | waiting |
+|   1 |    program1 |               4 |   10 | waiting |
++------------------------------------------------------+
+time: 518; current trace: EXEC, 33
++------------------------------------------------------+
+| PID |program name |partition number | size |   state |
++------------------------------------------------------+
+|   2 |    program2 |               3 |   15 | running |
+|   0 |        init |               6 |    1 | waiting |
+|   1 |    program1 |               4 |   10 | waiting |
++------------------------------------------------------+
+time: 1085; current trace: EXEC, 33
++------------------------------------------------------+
+| PID |program name |partition number | size |   state |
++------------------------------------------------------+
+|   1 |    program2 |               2 |   15 | running |
+|   0 |        init |               6 |    1 | waiting |
 +------------------------------------------------------+
