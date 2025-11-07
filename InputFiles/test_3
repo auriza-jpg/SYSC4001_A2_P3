@@ -10,3 +10,5 @@ CPU, 50
 SYSCALL, 6
 CPU, 15
 END_IO, 6
+
+note: empty if_child block, goes past the IF_PARENT block, runs post-ENDIF code, then parent executes the EXEC inside IF_PARENT

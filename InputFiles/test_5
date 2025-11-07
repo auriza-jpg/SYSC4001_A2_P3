@@ -1,0 +1,23 @@
+FORK, 12
+IF_CHILD, 0
+EXEC program1, 25
+IF_PARENT, 0
+CPU, 15
+ENDIF, 0
+CPU, 8
+
+#program1, 6
+SYSCALL, 3
+CPU, 5
+END_IO, 3
+SYSCALL, 6
+CPU, 4
+END_IO, 6
+CPU, 9
+SYSCALL, 3
+CPU, 5
+END_IO, 3
+SYSCALL, 6
+
+note: IO heavy child
+

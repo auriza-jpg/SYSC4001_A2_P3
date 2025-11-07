@@ -1,0 +1,13 @@
+FORK, 10
+IF_CHILD, 0
+EXEC program1, 30
+IF_PARENT, 0
+CPU, 20
+ENDIF, 0
+CPU, 10
+
+#program1, 20
+CPU, 150
+CPU, 180
+
+note: cpu bound child

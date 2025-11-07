@@ -14,3 +14,6 @@ EXEC program2, 33
 
 #program2, 15
 CPU, 53
+
+
+note: fork inside an EXECED program + ensures inner fork paths run before the parent continues to CPU call
