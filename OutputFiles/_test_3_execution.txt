@@ -24,3 +24,9 @@
 373, 265, SYSCALL ISR_Activities
 638, 1, IRET
 639, 15, CPU Burst
+654, 1, switch to kernel mode
+655, 10, context saved
+665, 1, find vector 6 in memory position 0x000C
+666, 1, load address 0X0639 into the PC
+667, 265, ENDIO ISR(ADD STEPS HERE)
+932, 1, IRET
