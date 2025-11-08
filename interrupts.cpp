@@ -1,8 +1,9 @@
 /**
  *
- * @file interrupts.cpp
- * @author Sasisekhar Govind
- *
+ *@file interrupts.cpp
+ *@author Sasisekhar Govind
+ *@author Brodie Macleod 101302779
+ *@author @Sahil-Todeti  101259541
  */
 
 #include<interrupts.hpp>
@@ -89,7 +90,7 @@ std::tuple<std::string, std::string, int> simulate_trace(std::vector<std::string
                     skip = true;
                     parent_index = j;
                     if(exec_flag) {
-                        break;
+                        break; //lets exec the the child process now 
                     }
                 } else if(skip && _activity == "ENDIF") {
                     skip = false;

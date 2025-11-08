@@ -1,0 +1,16 @@
+FORK, 10 
+IF_CHILD, 0
+EXEC program1, 50 
+IF_PARENT, 0
+EXEC program2, 25 
+ENDIF, 0
+CPU, 10
+
+#program1, 10
+CPU, 100
+
+#program2, 15
+SYSCALL, 4
+
+note: child performs an EXEC runs its entire program before the parent performs its own EXEC
+
